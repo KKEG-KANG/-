@@ -1,0 +1,12 @@
+{
+  "siteTitle": "내 비즈니스 · 원페이지 랜딩",
+  "description": "간단하고 빠르게 공개 가능한 랜딩 페이지 템플릿",
+  "brand": "내 비즈니스",
+  "phone": "010-0000-0000",
+  "kakaoLink": "https://pf.kakao.com/_example",
+  "email": "contact@example.com",
+  "address": "서울특별시 강남구 어딘가 123 (예시)",
+  "formEmbed": "https://docs.google.com/forms/d/e/1FAIpQLScExampleForm/viewform?embedded=true",
+  "mapEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3163.003967278754!2d127.0276219!3d37.4979426!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357ca158b6a0f7d7%3A0x9b9b9b9b9b9b9b9b!2z6rK96riw64-E7Yq4IO2VmeuPmQ!5e0!3m2!1sko!2skr!4v0000000000000",
+  "ogImage": "https://example.com/og.jpg"
+}

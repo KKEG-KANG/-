@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>사이트 관리 · JSON 편집기(오프라인 저장)</title>
+  <link rel="stylesheet" href="../styles.css" />
+  <style>
+    body { padding-bottom: 80px; }
+    .form { background: var(--card); border:1px solid var(--border); padding:20px; border-radius:16px; }
+    .form label { display:block; font-weight:600; margin: 10px 0 6px; }
+    .form input, .form textarea { width:100%; padding:10px; border-radius:10px; border:1px solid var(--border); background:#0f1015; color:var(--text); }
+    .actions { display:flex; gap:10px; margin-top:14px; }
+    .preview { margin-top: 20px; color: var(--muted); font-size: 14px; white-space: pre-wrap; }
+  </style>
+</head>
+<body class="container">
+  <h1>사이트 관리</h1>
+  <p class="sub">이 페이지에서 텍스트/링크를 수정 → <strong>JSON 다운로드</strong> → 깃허브에 업로드하면 즉시 반영됩니다.</p>
+
+  <div class="form">
+    <label>사이트 제목</label>
+    <input id="siteTitle" placeholder="사이트 탭에 표시될 제목" />
+    <label>설명(메타 디스크립션)</label>
+    <textarea id="description" rows="2"></textarea>
+    <label>브랜드명</label>
+    <input id="brand" />
+    <label>전화번호</label>
+    <input id="phone" placeholder="010-0000-0000" />
+    <label>카카오 링크</label>
+    <input id="kakaoLink" placeholder="https://pf.kakao.com/..." />
+    <label>이메일</label>
+    <input id="email" placeholder="contact@example.com" />
+    <label>주소</label>
+    <input id="address" />
+    <label>폼 임베드 URL</label>
+    <input id="formEmbed" placeholder="https://docs.google.com/forms/..." />
+    <label>지도 임베드 URL</label>
+    <input id="mapEmbed" placeholder="https://www.google.com/maps/embed?pb=..." />
+    <label>OG 이미지 URL</label>
+    <input id="ogImage" placeholder="https://..." />
+
+    <div class="actions">
+      <button class="btn primary" id="download">JSON 다운로드</button>
+      <a class="btn outline" href="../index.html">사이트로 돌아가기</a>
+    </div>
+    <div class="preview" id="preview"></div>
+  </div>
+
+  <script>
+    async function load() {
+      const res = await fetch('../data/site.json', {cache:'no-store'});
+      const data = await res.json();
+      for (const k in data) {
+        const el = document.getElementById(k);
+        if (el) el.value = data[k] ?? '';
+      }
+      updatePreview();
+    }
+    function collect() {
+      const keys = ['siteTitle','description','brand','phone','kakaoLink','email','address','formEmbed','mapEmbed','ogImage'];
+      const out = {};
+      keys.forEach(k => { const el = document.getElementById(k); out[k] = el ? el.value : ''; });
+      return out;
+    }
+    function updatePreview() {
+      const d = collect();
+      document.getElementById('preview').textContent = JSON.stringify(d, null, 2);
+    }
+    document.querySelectorAll('input,textarea').forEach(el => el.addEventListener('input', updatePreview));
+    document.getElementById('download').addEventListener('click', () => {
+      const blob = new Blob([JSON.stringify(collect(), null, 2)], {type:'application/json'});
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'site.json';
+      a.click();
+    });
+    load();
+  </script>
+</body>
+</html>
