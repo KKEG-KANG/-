@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>내 비즈니스 · 원페이지 랜딩</title>
+  <meta name="description" content="간단한 소개, 연락 버튼, 위치, 문의 폼을 담은 원페이지 랜딩 템플릿입니다." />
+  <meta property="og:title" content="내 비즈니스 · 원페이지 랜딩" />
+  <meta property="og:description" content="간단하고 빠르게 공개 가능한 랜딩 페이지 템플릿" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://example.com" />
+  <meta property="og:image" content="https://example.com/og.jpg" />
+  <!-- 네이버 서치어드바이저 소유확인 메타 태그 자리 (필요 시 교체)
+  <meta name="naver-site-verification" content="여기에_발급받은_코드" />
+  -->
+  <!-- 구글 애널리틱스(GA4) 태그 자리 (원하면 붙여넣기) -->
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <header class="container hero">
+    <nav class="nav">
+      <a href="#" class="brand">내 비즈니스</a>
+      <div class="nav-links">
+        <a href="#features">특징</a>
+        <a href="#contact">문의</a>
+        <a href="#map">오시는길</a>
+      </div>
+    </nav>
+    <div class="hero-inner">
+      <h1>깔끔하게, 빠르게 공개하는<br><span class="accent">원페이지 랜딩</span></h1>
+      <p class="sub">소개 · 포트폴리오 · 예약 · 광고 랜딩에 쓰기 좋은 최소 구성</p>
+      <div class="cta-group">
+        <a class="btn primary" href="tel:010-0000-0000">전화하기</a>
+        <a class="btn outline" href="#contact">문의 남기기</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section id="features" class="section">
+      <h2>이 템플릿으로 할 수 있는 것</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>소개 섹션</h3>
+          <p>서비스/업체 강점, 가격, 작업 예시 등을 간단히 정리합니다.</p>
+        </div>
+        <div class="card">
+          <h3>즉시 연락</h3>
+          <p>전화(텔: 링크), 카카오 오픈채팅/네이버 톡톡 링크 버튼을 배치하세요.</p>
+        </div>
+        <div class="card">
+          <h3>문의 폼 연동</h3>
+          <p>구글폼·타입폼 등 임베드만 넣으면 즉시 수집이 가능합니다.</p>
+        </div>
+        <div class="card">
+          <h3>지도/주소</h3>
+          <p>네이버/구글 지도 임베드로 방문 경로를 보여주세요.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="section">
+      <h2>빠른 문의</h2>
+      <p>아래 폼은 예시입니다. 자신의 구글폼 임베드 코드를 붙여넣어 교체하세요.</p>
+      <div class="embed-wrap">
+        <!-- 여기에 본인 구글폼 임베드 코드 붙여넣기 -->
+        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScExampleForm/viewform?embedded=true" width="100%" height="640" frameborder="0" marginheight="0" marginwidth="0">로드 중…</iframe>
+      </div>
+    </section>
+
+    <section id="map" class="section">
+      <h2>오시는 길</h2>
+      <p>주소: 서울특별시 강남구 어딘가 123 (예시)</p>
+      <div class="embed-wrap">
+        <!-- 구글/네이버 지도 임베드 코드로 교체하세요 -->
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3163.003967278754!2d127.0276219!3d37.4979426!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357ca158b6a0f7d7%3A0x9b9b9b9b9b9b9b9b!2z6rK96riw64-E7Yq4IO2VmeuPmQ!5e0!3m2!1sko!2skr!4v0000000000000" width="100%" height="380" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+      <div class="cta-group center">
+        <a class="btn primary" href="https://pf.kakao.com/_example" target="_blank" rel="noopener">카카오로 문의</a>
+        <a class="btn outline" href="mailto:contact@example.com">이메일 보내기</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>© <span id="year"></span> 내 비즈니스 · 사업자등록번호 000-00-00000</p>
+      <p class="small">개인정보처리방침 | 이용약관</p>
+    </div>
+  </footer>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "내 비즈니스",
+    "url": "https://example.com",
+    "telephone": "+82-10-0000-0000",
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": "KR",
+      "addressLocality": "서울",
+      "streetAddress": "강남구 어딘가 123"
+    }
+  }
+  </script>
+  <script src="./script.js"></script>
+</body>
+</html>
