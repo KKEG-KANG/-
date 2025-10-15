@@ -3,107 +3,88 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>내 비즈니스 · 원페이지 랜딩</title>
-  <meta name="description" content="간단한 소개, 연락 버튼, 위치, 문의 폼을 담은 원페이지 랜딩 템플릿입니다." />
+  <title id="meta-title">내 비즈니스 · 원페이지 랜딩</title>
+  <meta id="meta-desc" name="description" content="빠르게 공개 가능한 랜딩 페이지 템플릿" />
   <meta property="og:title" content="내 비즈니스 · 원페이지 랜딩" />
-  <meta property="og:description" content="간단하고 빠르게 공개 가능한 랜딩 페이지 템플릿" />
+  <meta property="og:description" content="빠르게 공개 가능한 랜딩 페이지 템플릿" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://example.com" />
-  <meta property="og:image" content="https://example.com/og.jpg" />
-  <!-- 네이버 서치어드바이저 소유확인 메타 태그 자리 (필요 시 교체)
-  <meta name="naver-site-verification" content="여기에_발급받은_코드" />
-  -->
-  <!-- 구글 애널리틱스(GA4) 태그 자리 (원하면 붙여넣기) -->
+  <meta property="og:image" content="https://example.com/og.jpg" id="meta-og" />
   <link rel="stylesheet" href="./styles.css" />
 </head>
 <body>
-  <header class="container hero">
-    <nav class="nav">
-      <a href="#" class="brand">내 비즈니스</a>
-      <div class="nav-links">
-        <a href="#features">특징</a>
-        <a href="#contact">문의</a>
-        <a href="#map">오시는길</a>
-      </div>
-    </nav>
-    <div class="hero-inner">
-      <h1>깔끔하게, 빠르게 공개하는<br><span class="accent">원페이지 랜딩</span></h1>
-      <p class="sub">소개 · 포트폴리오 · 예약 · 광고 랜딩에 쓰기 좋은 최소 구성</p>
-      <div class="cta-group">
-        <a class="btn primary" href="tel:010-0000-0000">전화하기</a>
-        <a class="btn outline" href="#contact">문의 남기기</a>
+  <header class="hero-bg">
+    <div class="overlay"></div>
+    <div class="container hero">
+      <nav class="nav">
+        <a href="#" class="brand" data-bind="brand">내 비즈니스</a>
+        <div class="nav-links">
+          <a href="./pages/intro.html">소개글</a>
+          <a href="./pages/menu.html">메뉴</a>
+          <a href="./pages/map.html">오시는길</a>
+          <a href="./pages/reviews.html">후기</a>
+          <a class="admin-link" href="./admin/index.html">관리</a>
+        </div>
+      </nav>
+      <div class="hero-inner">
+        <h1>깔끔하게, 빠르게 공개하는<br><span class="accent">원페이지 랜딩</span></h1>
+        <p class="sub">소개 · 포트폴리오 · 예약 · 광고 랜딩에 쓰기 좋은 최소 구성</p>
+        <div class="cta-group">
+          <a class="btn primary" data-bind="telLink" href="tel:010-0000-0000">전화하기</a>
+          <a class="btn outline" href="#board">문의 남기기</a>
+        </div>
       </div>
     </div>
   </header>
 
   <main class="container">
-    <section id="features" class="section">
-      <h2>이 템플릿으로 할 수 있는 것</h2>
-      <div class="grid">
-        <div class="card">
-          <h3>소개 섹션</h3>
-          <p>서비스/업체 강점, 가격, 작업 예시 등을 간단히 정리합니다.</p>
-        </div>
-        <div class="card">
-          <h3>즉시 연락</h3>
-          <p>전화(텔: 링크), 카카오 오픈채팅/네이버 톡톡 링크 버튼을 배치하세요.</p>
-        </div>
-        <div class="card">
-          <h3>문의 폼 연동</h3>
-          <p>구글폼·타입폼 등 임베드만 넣으면 즉시 수집이 가능합니다.</p>
-        </div>
-        <div class="card">
-          <h3>지도/주소</h3>
-          <p>네이버/구글 지도 임베드로 방문 경로를 보여주세요.</p>
-        </div>
+    <section id="board" class="section">
+      <h2>콘텐츠 게시판</h2>
+      <div class="grid board">
+        <a class="card big" href="./pages/intro.html">
+          <strong>소개글</strong>
+          <span>스토리/강점/운영</span>
+        </a>
+        <a class="card big" href="./pages/menu.html">
+          <strong>메뉴</strong>
+          <span>대표메뉴·가격·추천</span>
+        </a>
+        <a class="card big" href="./pages/map.html">
+          <strong>오시는길</strong>
+          <span>지도/주차/대중교통</span>
+        </a>
+        <a class="card big" href="./pages/reviews.html">
+          <strong>후기</strong>
+          <span>고객 리뷰/평점</span>
+        </a>
       </div>
+    </section>
+
+    <section id="calculator" class="section">
+      <h2>옵션 견적 계산기(예시)</h2>
+      <form class="calc-form">
+        <label class="row"><input type="checkbox" data-price="300000"> 기본 세팅(300,000)</label>
+        <label class="row"><input type="checkbox" data-price="150000"> 어닝 설치(150,000)</label>
+        <label class="row"><input type="checkbox" data-price="220000"> 태양광 600W(220,000)</label>
+        <label class="row"><input type="checkbox" data-price="90000"> 어닝룸 추가(90,000)</label>
+        <div class="total">합계: <strong id="total">0</strong> 원</div>
+      </form>
     </section>
 
     <section id="contact" class="section">
       <h2>빠른 문의</h2>
-      <p>아래 폼은 예시입니다. 자신의 구글폼 임베드 코드를 붙여넣어 교체하세요.</p>
       <div class="embed-wrap">
-        <!-- 여기에 본인 구글폼 임베드 코드 붙여넣기 -->
-        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScExampleForm/viewform?embedded=true" width="100%" height="640" frameborder="0" marginheight="0" marginwidth="0">로드 중…</iframe>
-      </div>
-    </section>
-
-    <section id="map" class="section">
-      <h2>오시는 길</h2>
-      <p>주소: 서울특별시 강남구 어딘가 123 (예시)</p>
-      <div class="embed-wrap">
-        <!-- 구글/네이버 지도 임베드 코드로 교체하세요 -->
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3163.003967278754!2d127.0276219!3d37.4979426!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357ca158b6a0f7d7%3A0x9b9b9b9b9b9b9b9b!2z6rK96riw64-E7Yq4IO2VmeuPmQ!5e0!3m2!1sko!2skr!4v0000000000000" width="100%" height="380" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-      </div>
-      <div class="cta-group center">
-        <a class="btn primary" href="https://pf.kakao.com/_example" target="_blank" rel="noopener">카카오로 문의</a>
-        <a class="btn outline" href="mailto:contact@example.com">이메일 보내기</a>
+        <iframe id="form-embed" width="100%" height="640" frameborder="0" marginheight="0" marginwidth="0">로드 중…</iframe>
       </div>
     </section>
   </main>
 
   <footer class="footer">
     <div class="container">
-      <p>© <span id="year"></span> 내 비즈니스 · 사업자등록번호 000-00-00000</p>
-      <p class="small">개인정보처리방침 | 이용약관</p>
+      <p>© <span id="year"></span> <span data-bind="brand">내 비즈니스</span> · 사업자등록번호 000-00-00000</p>
+      <p class="small"><a href="#">개인정보처리방침</a> | <a href="#">이용약관</a></p>
     </div>
   </footer>
-
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "LocalBusiness",
-    "name": "내 비즈니스",
-    "url": "https://example.com",
-    "telephone": "+82-10-0000-0000",
-    "address": {
-      "@type": "PostalAddress",
-      "addressCountry": "KR",
-      "addressLocality": "서울",
-      "streetAddress": "강남구 어딘가 123"
-    }
-  }
-  </script>
   <script src="./script.js"></script>
 </body>
 </html>

@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title id="meta-title">섹션 · 페이지</title>
+  <meta id="meta-desc" name="description" content="" />
+  <meta property="og:title" content="섹션 · 페이지" />
+  <meta property="og:description" content="" />
+  <meta property="og:type" content="website" />
+  <link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+  <div class="container page">
+    <nav class="nav">
+      <a href="../index.html" class="brand" data-bind="brand">내 비즈니스</a>
+      <div class="nav-links">
+        <a href="./intro.html">소개글</a>
+        <a href="./menu.html">메뉴</a>
+        <a href="./map.html">오시는길</a>
+        <a href="./reviews.html">후기</a>
+        <a class="admin-link" href="../admin/sections.html">게시판 관리</a>
+      </div>
+    </nav>
+    <h1 class="title" id="title">섹션</h1>
+    <div id="body" class="content"></div>
+    <div class="gallery" id="gallery"></div>
+    <div id="mapWrap" class="embed-wrap" style="margin-top:14px; display:none;">
+      <iframe id="map" width="100%" height="420" frameborder="0"></iframe>
+    </div>
+    <p class="note">이 콘텐츠는 <code>data/sections.json</code>에서 관리됩니다.</p>
+  </div>
+  <script>
+    const KEY = "menu";
+    async function loadAll() {
+      try {
+        const s = await fetch('../data/site.json', {cache:'no-store'}).then(r=>r.json());
+        document.querySelectorAll('[data-bind="brand"]').forEach(el => el.textContent = s.brand || '내 비즈니스');
+      } catch {}
+      const data = await fetch('../data/sections.json', {cache:'no-store'}).then(r=>r.json());
+      const sec = data[KEY] || {};
+      document.getElementById('title').textContent = sec.title || '섹션';
+      document.getElementById('body').innerHTML = sec.body || '';
+      const g = document.getElementById('gallery');
+      (sec.images || []).forEach(src => { const img = new Image(); img.src = src; g.appendChild(img); });
+      if (KEY === 'map' && sec.mapEmbed) { document.getElementById('mapWrap').style.display = 'block'; document.getElementById('map').src = sec.mapEmbed; }
+      document.getElementById('meta-title').textContent = (sec.title || '섹션') + ' · 내 비즈니스';
+    }
+    loadAll();
+  </script>
+</body>
+</html>
