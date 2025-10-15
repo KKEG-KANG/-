@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>사이트 관리 · 기본 설정(JSON)</title>
+  <link rel="stylesheet" href="../styles.css" />
+  <style>
+    body { padding-bottom: 80px; }
+    .form { background: var(--card); border:1px solid var(--border); padding:20px; border-radius:16px; }
+    .form label { display:block; font-weight:600; margin: 10px 0 6px; }
+    .form input, .form textarea { width:100%; padding:10px; border-radius:10px; border:1px solid var(--border); background:#0f1015; color:var(--text); }
+    .actions { display:flex; gap:10px; margin-top:14px; flex-wrap: wrap; }
+    .preview { margin-top: 20px; color: var(--muted); font-size: 14px; white-space: pre-wrap; }
+  </style>
+</head>
+<body class="container">
+  <h1>사이트 기본 설정</h1>
+  <p class="sub">텍스트/연락처/임베드와 히어로 배경 이미지를 관리합니다. 저장은 <strong>JSON 다운로드 → data/site.json 교체 업로드</strong>로 진행.</p>
+
+  <div class="actions" style="margin-bottom:12px;">
+    <a class="btn outline" href="../index.html">사이트 보기</a>
+    <a class="btn outline" href="./sections.html">게시판 관리</a>
+  </div>
+
+  <div class="form">
+    <label>사이트 제목</label><input id="siteTitle" />
+    <label>설명(메타 디스크립션)</label><textarea id="description" rows="2"></textarea>
+    <label>브랜드명</label><input id="brand" />
+    <label>전화번호</label><input id="phone" placeholder="010-0000-0000" />
+    <label>카카오 링크</label><input id="kakaoLink" placeholder="https://pf.kakao.com/..." />
+    <label>이메일</label><input id="email" placeholder="contact@example.com" />
+    <label>주소</label><input id="address" />
+    <label>폼 임베드 URL</label><input id="formEmbed" placeholder="https://docs.google.com/forms/..." />
+    <label>OG 이미지 URL</label><input id="ogImage" placeholder="https://..." />
+    <label>히어로 배경 이미지 URL 또는 경로</label><input id="heroImage" placeholder="./assets/hero.jpg 또는 https://..." />
+    <label>히어로 배경 어둡기(0~0.9)</label><input id="heroOverlay" type="number" min="0" max="0.9" step="0.1" />
+    <div class="actions"><button class="btn primary" id="download">JSON 다운로드</button></div>
+    <div class="preview" id="preview"></div>
+  </div>
+
+  <script>
+    async function load() {
+      const res = await fetch('../data/site.json', {cache:'no-store'});
+      const data = await res.json();
+      for (const k in data) { const el = document.getElementById(k); if (el) el.value = data[k] ?? ''; }
+      updatePreview();
+    }
+    function collect() {
+      const keys = ['siteTitle','description','brand','phone','kakaoLink','email','address','formEmbed','ogImage','heroImage','heroOverlay'];
+      const out = {}; keys.forEach(k => { const el = document.getElementById(k); out[k] = el ? el.value : ''; }); return out;
+    }
+    function updatePreview() { document.getElementById('preview').textContent = JSON.stringify(collect(), null, 2); }
+    document.querySelectorAll('input,textarea').forEach(el => el.addEventListener('input', updatePreview));
+    document.getElementById('download').addEventListener('click', () => {
+      const blob = new Blob([JSON.stringify(collect(), null, 2)], {type:'application/json'});
+      const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'site.json'; a.click();
+    });
+    load();
+  </script>
+</body>
+</html>

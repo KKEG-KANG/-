@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>게시판 관리(소개/메뉴/오시는길/후기)</title>
+  <link rel="stylesheet" href="../styles.css" />
+  <style>
+    body { padding-bottom: 80px; }
+    .wrap { display:grid; grid-template-columns: 1fr; gap: 18px; }
+    .panel { background: var(--card); border:1px solid var(--border); padding:16px; border-radius:16px; }
+    label { display:block; font-weight:600; margin: 8px 0 6px; }
+    input, textarea { width:100%; padding:10px; border-radius:10px; border:1px solid var(--border); background:#0f1015; color:var(--text); }
+    .images { display:flex; gap:8px; flex-wrap:wrap; margin-top:6px; }
+    .images input { flex:1 1 320px; }
+    .actions { display:flex; gap:10px; margin-top:14px; flex-wrap:wrap; }
+    .small { color: var(--muted); font-size: 12px; }
+  </style>
+</head>
+<body class="container">
+  <h1>게시판 관리</h1>
+  <p class="sub">이미지는 <code>/assets</code> 폴더에 업로드 후 경로를 넣어주세요. 예: <code>./assets/intro1.jpg</code></p>
+  <div class="actions">
+    <a class="btn outline" href="./index.html">기본 설정으로</a>
+    <a class="btn outline" href="../pages/intro.html">소개글 보기</a>
+    <a class="btn outline" href="../pages/menu.html">메뉴 보기</a>
+    <a class="btn outline" href="../pages/map.html">오시는길 보기</a>
+    <a class="btn outline" href="../pages/reviews.html">후기 보기</a>
+  </div>
+  <div class="wrap" id="panels"></div>
+  <div class="actions">
+    <button class="btn primary" id="download">JSON 다운로드</button>
+  </div>
+  <p class="small">받은 <code>sections.json</code>을 저장소의 <code>/data/sections.json</code>으로 교체 업로드하세요.</p>
+
+  <script>
+    const KEYS = ['intro','menu','map','reviews'];
+    const LABELS = {intro:'소개글', menu:'메뉴', map:'오시는길', reviews:'후기'};
+
+    function addImgField(container, value='') {
+      const i = document.createElement('input'); i.type='text'; i.placeholder='./assets/파일명.jpg 또는 https://...'; i.value=value;
+      container.appendChild(i);
+    }
+
+    function panel(key, data) {
+      const p = document.createElement('div'); p.className='panel'; p.dataset.key = key;
+      p.innerHTML = `<h3>${LABELS[key]}</h3>
+        <label>제목</label><input id="${key}-title">
+        <label>본문(간단 HTML 허용)</label><textarea id="${key}-body" rows="5"></textarea>
+        ${key==='map' ? '<label>지도 임베드 URL</label><input id="'+key+'-mapEmbed" placeholder="https://www.google.com/maps/embed?...">' : ''}
+        <label>이미지 URL들</label><div class="images"></div><button class="btn outline" type="button">이미지 필드 추가</button>`;
+      p.querySelector('#'+key+'-title').value = data.title || '';
+      p.querySelector('#'+key+'-body').value = data.body || '';
+      if (key==='map') p.querySelector('#'+key+'-mapEmbed').value = data.mapEmbed || '';
+      const imgs = p.querySelector('.images'); (data.images||['']).forEach(src => addImgField(imgs, src));
+      p.querySelector('button').addEventListener('click', () => addImgField(imgs, ''));
+      return p;
+    }
+
+    async function load() {
+      const d = await fetch('../data/sections.json', {cache:'no-store'}).then(r=>r.json());
+      const wrap = document.getElementById('panels');
+      KEYS.forEach(k => wrap.appendChild(panel(k, d[k] || {})));
+    }
+
+    function collect() {
+      const out = {}; document.querySelectorAll('.panel').forEach(p => {
+        const k = p.dataset.key;
+        const obj = {
+          title: p.querySelector('#'+k+'-title').value,
+          body: p.querySelector('#'+k+'-body').value,
+          images: Array.from(p.querySelectorAll('.images input')).map(x => x.value).filter(Boolean)
+        };
+        if (k==='map') obj.mapEmbed = p.querySelector('#'+k+'-mapEmbed').value;
+        out[k] = obj;
+      });
+      return out;
+    }
+
+    document.getElementById('download').addEventListener('click', () => {
+      const blob = new Blob([JSON.stringify(collect(), null, 2)], {type:'application/json'});
+      const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'sections.json'; a.click();
+    });
+
+    load();
+  </script>
+</body>
+</html>
